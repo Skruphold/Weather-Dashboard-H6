@@ -75,7 +75,10 @@ function weatherConditionsreq(searchValue) {
 
                 forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 forecastIcon.attr("alt", response.list[i].weather[0].main);
-                
+                forecastTemp.text(response.list[i].main.temp);
+                forecastTemp.prepend("temp: ");
+                forecastTemp.append(" deg; F");
+
             }
         })
         
