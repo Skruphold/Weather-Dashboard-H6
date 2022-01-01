@@ -31,9 +31,9 @@ function weatherConditionsreq(searchValue) {
         $("#current-date").text("("+ currentDate +")");
         currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
         currentTemp.text(response.main.temp);
-        currentTemp.append(" deg;F");
+        currentTemp.append(" deg; F");
         currentHumidity.text(response.main.humidity + "%");
-        currentWind.text(response.wind.speed + "MPH");
+        currentWind.text(response.wind.speed + " MPH");
         currentCity.append("<small class='text-muted' id='current-date'> ");
         
         var lat = response.coord.lat;
@@ -47,5 +47,37 @@ function weatherConditionsreq(searchValue) {
             console.log(response);
             UVindex.text(response.value);
         })
+
+        var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?&units=imperial&appid=" + APIkey + "&lat=" + lat + "&lon=" + lon;
+
+        $.ajax({
+            url: forecastUrl,
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+            $('#five-day').empty();
+            for( var i = 0; i < response.list.length; i+=8) {
+                var forecastCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3'>");
+                var forecastCard = $("<div class='card'>");
+                var forecastCardbody = $("<div class='card-body'>");
+                var forecastIcon = $("<img>");
+                var forecastTemp = $("<p class='card-text mb-0'>");
+                var forecastHumidity = $("<p class='card-text mb-0'>");
+                var forecastWind = $("<p class='card-text mb-0'>");
+
+                $('#five-day').append(forecastCol);
+                forecastCol.append(forecastCard);
+                forecastCard.append(forecastCardbody);
+                forecastCardbody.append(forecastIcon);
+                forecastCardbody.append(forecastTemp);
+                forecastCardbody.append(forecastHumidity);
+                forecastCardbody.append(forecastWind);
+
+                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                forecastIcon.attr("alt", response.list[i].weather[0].main);
+                
+            }
+        })
+        
     })
 }
