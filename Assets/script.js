@@ -7,10 +7,7 @@ var currentHumidity = $('#current-humidity');
 var currentWind = $('#current-wind-speed');
 var UVindex = $('#uv-index');
 var weatherContent = $('#weather-content');
-var cityArray = [];
-
 var APIkey = "e4263641413f8c342d1e4be83dc88bb7";
-
 var currentDate = moment().format('L');
 $('#current-date').text("("+ currentDate +")");
 
@@ -30,5 +27,25 @@ function weatherConditionsreq(searchValue) {
         method: "GET"
     }).then(function(response){
         console.log(response);
+        currentCity.text(response.name);
+        $("#current-date").text("("+ currentDate +")");
+        currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
+        currentTemp.text(response.main.temp);
+        currentTemp.append(" deg;F");
+        currentHumidity.text(response.main.humidity + "%");
+        currentWind.text(response.wind.speed + "MPH");
+        currentCity.append("<small class='text-muted' id='current-date'> ");
+        
+        var lat = response.coord.lat;
+        var lon = response.coord.lon;
+        var uvURL = "https://api.openweathermap.org/data/2.5/uvi?&lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
+
+        $.ajax({
+            url: uvURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+            UVindex.text(response.value);
+        })
     })
 }
