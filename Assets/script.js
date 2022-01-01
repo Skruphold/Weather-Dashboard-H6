@@ -64,10 +64,16 @@ function weatherConditionsreq(searchValue) {
                 var forecastTemp = $("<p class='card-text mb-0'>");
                 var forecastHum = $("<p class='card-text mb-0'>");
                 var forecastWind = $("<p class='card-text mb-0'>");
+                var forecastDate = $("<h4 class='card-date'>")
+                var forecastDates = moment(response.list[i].dt_text).format("L");
+                console.log(forecastDates);
 
+                console.log(response.list[i].dt_text);
+              
                 $('#five-day').append(forecastCol);
                 forecastCol.append(forecastCard);
                 forecastCard.append(forecastCardbody);
+                forecastCardbody.append(forecastDate);
                 forecastCardbody.append(forecastIcon);
                 forecastCardbody.append(forecastTemp);
                 forecastCardbody.append(forecastHum);
@@ -75,6 +81,7 @@ function weatherConditionsreq(searchValue) {
 
                 forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 forecastIcon.attr("alt", response.list[i].weather[0].main);
+                forecastDate.text(forecastDates);
                 forecastTemp.text(response.list[i].main.temp);
                 forecastTemp.prepend("temp: ");
                 forecastTemp.append(" deg; F");
