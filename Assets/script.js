@@ -62,7 +62,7 @@ function weatherConditionsreq(searchValue) {
                 var forecastCardbody = $("<div class='card-body'>");
                 var forecastIcon = $("<img>");
                 var forecastTemp = $("<p class='card-text mb-0'>");
-                var forecastHumidity = $("<p class='card-text mb-0'>");
+                var forecastHum = $("<p class='card-text mb-0'>");
                 var forecastWind = $("<p class='card-text mb-0'>");
 
                 $('#five-day').append(forecastCol);
@@ -70,7 +70,7 @@ function weatherConditionsreq(searchValue) {
                 forecastCard.append(forecastCardbody);
                 forecastCardbody.append(forecastIcon);
                 forecastCardbody.append(forecastTemp);
-                forecastCardbody.append(forecastHumidity);
+                forecastCardbody.append(forecastHum);
                 forecastCardbody.append(forecastWind);
 
                 forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
@@ -78,7 +78,12 @@ function weatherConditionsreq(searchValue) {
                 forecastTemp.text(response.list[i].main.temp);
                 forecastTemp.prepend("temp: ");
                 forecastTemp.append(" deg; F");
-
+                forecastHum.text(response.list[i].main.humidity);
+                forecastHum.prepend("Humidity: ");
+                forecastHum.append("%");
+                forecastWind.text(response.list[i].wind.speed);
+                forecastWind.prepend("Wind Speed: ");
+                forecastWind.append(" MPH");
             }
         })
         
