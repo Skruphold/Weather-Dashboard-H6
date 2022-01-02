@@ -5,6 +5,7 @@ var currentCity = $('#current-city');
 var currentTemp = $('#current-temp');
 var currentHumidity = $('#current-humidity');
 var currentWind = $('#current-wind-speed');
+var currentColor = $('#current-card');
 var UVindex = $('#uv-index');
 var weatherContent = $('#weather-content');
 var APIkey = "e4263641413f8c342d1e4be83dc88bb7";
@@ -29,6 +30,13 @@ function weatherConditionsreq(searchValue) {
         method: "GET"
     }).then(function(response){
         console.log(response);
+        if (response.clouds.all >= 75) {
+            currentColor.addClass("cloudy");
+        }if (response.clouds.all <= 74 >= 25) {
+            currentColor.addClass("partlyCloudy");
+        }if (response.clouds.all <= 24) {
+            currentColor.addClass("clear");
+        }
         currentCity.text(response.name);
         $("#current-date").text("("+ currentDate +")");
         currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
@@ -69,8 +77,7 @@ function weatherConditionsreq(searchValue) {
                 var forecastDate = $("<h4 class='card-date'>")
                 var forecastDates = moment(response.list[i].dt_txt).format("L");
                 console.log(forecastDates);
-
-                console.log(response.list[i].dt_txt);
+                var forecastColor = (response.list[i].clouds.all);
               
                 $('#five-day').append(forecastCol);
                 forecastCol.append(forecastCard);
@@ -81,11 +88,11 @@ function weatherConditionsreq(searchValue) {
                 forecastCardbody.append(forecastHum);
                 forecastCardbody.append(forecastWind);
 
-                if (response.list[i].clouds.all === 100) {
+                if (forecastColor >= 75) {
                     forecastCard.addClass("cloudy");
-                }if (response.list[i].clouds.all > 25) {
+                }if (forecastColor <= 74 > 25) {
                     forecastCard.addClass("partlyCloudy");
-                }if (response.list[i].clouds.all < 25) {
+                }else (forecastColor < 25); {
                     forecastCard.addClass("clear");
                 }
 
