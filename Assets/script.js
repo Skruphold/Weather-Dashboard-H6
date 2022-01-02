@@ -30,11 +30,12 @@ function weatherConditionsreq(searchValue) {
         method: "GET"
     }).then(function(response){
         console.log(response);
-        if (response.clouds.all >= 75) {
+        var bgColor = (response.weather[0].icon)
+        if (bgColor === '04d') {
             currentColor.addClass("cloudy");
-        }if (response.clouds.all <= 74 >= 25) {
+        }if (bgColor === '02d') {
             currentColor.addClass("partlyCloudy");
-        }if (response.clouds.all <= 24) {
+        }if (bgColor === '01d') {
             currentColor.addClass("clear");
         }
         currentCity.text(response.name);
@@ -77,7 +78,7 @@ function weatherConditionsreq(searchValue) {
                 var forecastDate = $("<h4 class='card-date'>")
                 var forecastDates = moment(response.list[i].dt_txt).format("L");
                 console.log(forecastDates);
-                var forecastColor = (response.list[i].clouds.all);
+                var forecastColor = (response.list[i].weather[0].icon);
               
                 $('#five-day').append(forecastCol);
                 forecastCol.append(forecastCard);
@@ -88,11 +89,11 @@ function weatherConditionsreq(searchValue) {
                 forecastCardbody.append(forecastHum);
                 forecastCardbody.append(forecastWind);
 
-                if (forecastColor >= 75) {
+                if (forecastColor === '04d') {
                     forecastCard.addClass("cloudy");
-                }if (forecastColor <= 74 > 25) {
+                }if (forecastColor === '02d' ) {
                     forecastCard.addClass("partlyCloudy");
-                }else (forecastColor < 25); {
+                }if (forecastColor === '01d') {
                     forecastCard.addClass("clear");
                 }
 
