@@ -10,11 +10,13 @@ var weatherContent = $('#weather-content');
 var APIkey = "e4263641413f8c342d1e4be83dc88bb7";
 var currentDate = moment().format('L');
 $('#current-date').text("("+ currentDate +")");
+var cityList = [];
 
 searchBtn.on("click", function(event){
     event.preventDefault();
     var searchValue = searchInput.val().trim();
     weatherConditionsreq(searchValue);
+    cityHistory(searchValue);
     searchInput.val("");
 })
 
@@ -65,10 +67,10 @@ function weatherConditionsreq(searchValue) {
                 var forecastHum = $("<p class='card-text mb-0'>");
                 var forecastWind = $("<p class='card-text mb-0'>");
                 var forecastDate = $("<h4 class='card-date'>")
-                var forecastDates = moment(response.list[i].dt_text).format("L");
+                var forecastDates = moment(response.list[i].dt_txt).format("L");
                 console.log(forecastDates);
 
-                console.log(response.list[i].dt_text);
+                console.log(response.list[i].dt_txt);
               
                 $('#five-day').append(forecastCol);
                 forecastCol.append(forecastCard);
@@ -92,7 +94,33 @@ function weatherConditionsreq(searchValue) {
                 forecastWind.prepend("Wind Speed: ");
                 forecastWind.append(" MPH");
             }
-        })
-        
-    })
+        });
+    });
+};
+
+function cityHistory(searchValue) {
+    if (searchValue) {
+        if (cityList.indexOf(searchValue) == -1) {
+            cityList.push(searchValue);
+            listArr();
+            weatherContent.removeClass("hide");
+        } else {
+            var removeItem = cityList.indexOf(searchValue);
+            cityList.splice(removeItem, 1);
+            cityList.push(searchValue);
+            listArr();
+            weatherContent.removeClass("hide");
+        }
+    }
+}
+
+function listArr() {
+    searchHistory.empty();
+    cityList.forEach(function(city) {
+        var cityHistoryitem = $('<li class="list-group-item city-btn">');
+        cityHistoryitem.attr("data-value", city);
+        cityHistoryitem.text(city);
+        searchHistory.prepend(cityHistoryitem)
+    });
+    localStorage.setItem("cities", JSON.stringify(cityList));
 }

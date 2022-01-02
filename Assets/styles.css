@@ -1,0 +1,11 @@
+body, .container-fluid, .content-row {
+    height: 100%;
+}
+
+.hide {
+    display: none;
+}
+
+.card {
+    background-color: white;
+}
