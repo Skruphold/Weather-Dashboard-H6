@@ -148,4 +148,11 @@ function initHistory() {
     }
 }
 
+searchHistory.on("click","li.city-btn", function() {
+    console.log($(this).data("value"));
+    var value = $(this).data("value");
+    weatherConditionsreq(value);
+    cityHistory(value);
+})
+
 initHistory();

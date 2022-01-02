@@ -1,4 +1,4 @@
-body, .container-fluid, .content-row {
+body {
     height: 100%;
 }
 
@@ -20,4 +20,9 @@ body, .container-fluid, .content-row {
 
 .partlyCloudy {
     background-color: lightgray;
+}
+
+.city-btn:hover {
+    cursor: pointer;
+    background-color: lightblue
 }
