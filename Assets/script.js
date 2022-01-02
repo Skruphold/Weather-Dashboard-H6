@@ -81,6 +81,14 @@ function weatherConditionsreq(searchValue) {
                 forecastCardbody.append(forecastHum);
                 forecastCardbody.append(forecastWind);
 
+                if (response.list[i].clouds.all === 100) {
+                    forecastCard.addClass("cloudy");
+                }if (response.list[i].clouds.all > 25) {
+                    forecastCard.addClass("partlyCloudy");
+                }if (response.list[i].clouds.all < 25) {
+                    forecastCard.addClass("clear");
+                }
+
                 forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 forecastIcon.attr("alt", response.list[i].weather[0].main);
                 forecastDate.text(forecastDates);
@@ -124,3 +132,12 @@ function listArr() {
     });
     localStorage.setItem("cities", JSON.stringify(cityList));
 }
+
+function initHistory() {
+    if (localStorage.getItem("cities")) {
+        cityList = JSON.parse(localStorage.getItem("cities"));
+        listArr();
+    }
+}
+
+initHistory();

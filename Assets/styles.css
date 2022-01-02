@@ -7,5 +7,17 @@ body, .container-fluid, .content-row {
 }
 
 .card {
-    background-color: white;
+    background-color: lightblue;
+}
+
+.clear {
+    background-color: lightblue;
+}
+
+.cloudy {
+    background-color: grey;
+}
+
+.partlyCloudy {
+    background-color: lightgray;
 }
