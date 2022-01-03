@@ -10,6 +10,7 @@ var UVindex = $('#uv-index');
 var weatherContent = $('#weather-content');
 var APIkey = "e4263641413f8c342d1e4be83dc88bb7";
 var currentDate = moment().format('L');
+$('#todays-date').text("("+ currentDate +")");
 $('#current-date').text("("+ currentDate +")");
 var cityList = [];
 
@@ -37,10 +38,29 @@ function weatherConditionsreq(searchValue) {
             currentColor.addClass("partlyCloudy");
         }if (bgColor === '01d') {
             currentColor.addClass("clear");
+        }if (bgColor === '04n') {
+            currentColor.addClass("cloudy");
+        }if (bgColor === '02n') {
+            currentColor.addClass("partlyCloudy");
+        }if (bgColor === '01n') {
+            currentColor.addClass("clear");
+        }if (bgColor === '03n') {
+            currentColor.addClass("cloudy");
+        }if (bgColor === '03d') {
+            currentColor.addClass("cloudy");
+        }if (bgColor === '10n') {
+            currentColor.addClass("partlyCloudy");
+        }if (bgColor === '10d') {
+            currentColor.addClass("partlyCloudy");
+        }if (bgColor === '13n') {
+            currentColor.addClass("cloudy");
+        }if (bgColor === '13d') {
+            currentColor.addClass("cloudy");
         }
+
         currentCity.text(response.name);
         $("#current-date").text("("+ currentDate +")");
-        currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
+        currentCity.append("<img src='https://openweathermap.org/img/w/" + bgColor + ".png' alt='" + response.weather[0].main + "' />")
         currentTemp.text(response.main.temp);
         currentTemp.append(" deg; F");
         currentHumidity.text(response.main.humidity + "%");
@@ -91,13 +111,31 @@ function weatherConditionsreq(searchValue) {
 
                 if (forecastColor === '04d') {
                     forecastCard.addClass("cloudy");
-                }if (forecastColor === '02d' ) {
+                }if (forecastColor === '02d') {
                     forecastCard.addClass("partlyCloudy");
                 }if (forecastColor === '01d') {
                     forecastCard.addClass("clear");
+                }if (forecastColor === '04n') {
+                    forecastCard.addClass("cloudy");
+                }if (forecastColor === '02n') {
+                    forecastCard.addClass("partlyCloudy");
+                }if (forecastColor === '01n') {
+                    forecastCard.addClass("clear");
+                }if (forecastColor === '03n') {
+                    forecastCard.addClass("cloudy");
+                }if (forecastColor === '03d') {
+                    forecastCard.addClass("cloudy");
+                }if (forecastColor === '10n') {
+                    forecastCard.addClass("partlyCloudy");
+                }if (forecastColor === '10d') {
+                    forecastCard.addClass("partlyCloudy");
+                }if (forecastColor === '13n') {
+                    forecastCard.addClass("cloudy");
+                }if (forecastColor === '13d') {
+                    forecastCard.addClass("cloudy");
                 }
 
-                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + forecastColor + ".png");
                 forecastIcon.attr("alt", response.list[i].weather[0].main);
                 forecastDate.text(forecastDates);
                 forecastTemp.text(response.list[i].main.temp);
