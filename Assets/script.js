@@ -22,6 +22,13 @@ searchBtn.on("click", function(event){
     searchInput.val("");
 })
 
+$(document).on('keypress', function(e) {
+    e.preventDefault();
+    if(e.which == 13) {
+        searchBtn.click();
+    }
+})
+
 function weatherConditionsreq(searchValue) {
 
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=" + APIkey;
@@ -76,7 +83,16 @@ function weatherConditionsreq(searchValue) {
             method: "GET"
         }).then(function(response){
             console.log(response);
-            UVindex.text(response.value);
+            var uvValue = (response.value);
+            // var uvValue = (3);
+            UVindex.text(uvValue);
+            if (uvValue <=2){
+                UVindex.addClass("bg-success");
+            }else if (uvValue > 2 && uvValue <= 5) {
+                UVindex.addClass("bg-warning");
+            }else {
+                UVindex.addClass("bg-danger");
+            }
         })
 
         var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?&units=imperial&appid=" + APIkey + "&lat=" + lat + "&lon=" + lon;
@@ -88,7 +104,7 @@ function weatherConditionsreq(searchValue) {
             console.log(response);
             $('#five-day').empty();
             for( var i = 0; i < response.list.length; i+=8) {
-                var forecastCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3'>");
+                var forecastCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3 d-flex align-items-stretch'>");
                 var forecastCard = $("<div class='card'>");
                 var forecastCardbody = $("<div class='card-body'>");
                 var forecastIcon = $("<img>");
