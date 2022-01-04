@@ -15,7 +15,7 @@ $('#current-date').text("("+ currentDate +")");
 var cityList = [];
 
 searchBtn.on("click", function(event){
-    event.preventDefault();
+    // event.preventDefault();
     var searchValue = searchInput.val().trim();
     weatherConditionsreq(searchValue);
     cityHistory(searchValue);
@@ -23,7 +23,7 @@ searchBtn.on("click", function(event){
 })
 
 $(document).on('keypress', function(e) {
-    e.preventDefault();
+    // e.preventDefault();
     if(e.which == 13) {
         searchBtn.click();
     }
