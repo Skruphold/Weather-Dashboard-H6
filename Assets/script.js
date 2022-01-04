@@ -26,6 +26,7 @@ $(document).on('keypress', function(e) {
     // e.preventDefault();
     if(e.which == 13) {
         searchBtn.click();
+        e.preventDefault();
     }
 })
 
