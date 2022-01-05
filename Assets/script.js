@@ -14,7 +14,7 @@ $('#todays-date').text("("+ currentDate +")");
 $('#current-date').text("("+ currentDate +")");
 var cityList = [];
 
-searchBtn.on("click", function(event){
+searchBtn.on("click", function(event){ 
     // event.preventDefault();
     var searchValue = searchInput.val().trim();
     weatherConditionsreq(searchValue);
@@ -89,7 +89,7 @@ function weatherConditionsreq(searchValue) {
             UVindex.text(uvValue);
             if (uvValue <=2){
                 UVindex.addClass("bg-success");
-            }else if (uvValue > 2 && uvValue <= 5) {
+            }else if (uvValue <= 5) {
                 UVindex.addClass("bg-warning");
             }else {
                 UVindex.addClass("bg-danger");
